@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="http://demo.jb51.net/js/2011/artDialog/skins/default.css?4.1.7">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #open-btn {
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            background: skyblue;
+            border: 0;
+            color: red;
+            font-size: 21px;
+        }
+    </style>
+</head>
+<body>
+	<button id="open-btn">Click</button>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.js"></script>
+<script src="./dialog.js"></script>
+<script type="text/javascript">
+	function randomNum(min, max) {   
+		var rang = max - min;   
+		var rand = Math.random();   
+		return(min + Math.round(rand * rang));   
+	}   
+	$(document).ready(function(){
+		var roster = ['pz', 'sp', 'll', 'wx'];
+		$("#open-btn").on('click', function(event) {
+			event.stopPropagation();
+			event.preventDefault();
+			art.dialog.msg(roster[randomNum(0, 3)]);
+		});
+	});
+</script>
+</html>
