@@ -1259,12 +1259,14 @@ _$document.bind('mousedown', function (event) {
 })(this.art || this.jQuery && (this.art = jQuery));
 
 
+// 保存弹框id用于获取具体弹框
 var gMsgId = [];
 artDialog.msg = function(content, time, _callback) {
-    var msgWidth = 320;
-    var rightMargin = 20;
-    var openDuration = 200;
-    var closeDuration = 100;
+    var msgWidth = 320;// 弹框宽度
+    var rightMargin = 20;// 距离右边的距离
+    var openDuration = 200;// 弹框显示的时候动画时间
+    var closeDuration = 100;// 弹框关闭的时候动画时间
+    // 创建一个弹框
     artDialog({
         title: false,
         lock: false,
@@ -1291,7 +1293,8 @@ artDialog.msg = function(content, time, _callback) {
                     $(art.dialog.list[this.config.id].DOM.wrap[0]).fadeOut(closeDuration, function() {
                         _positionPrompt('close');
                     });
-                } else {$(art.dialog.list[this.config.id].DOM.wrap[0]).fadeOut(closeDuration);
+                } else {
+                    $(art.dialog.list[this.config.id].DOM.wrap[0]).fadeOut(closeDuration);
                 }
             }
             return false;
@@ -1311,35 +1314,42 @@ artDialog.msg = function(content, time, _callback) {
     }
     function _getMsgHeight(pos) {
         var _height = 0;
-        for (var i = gMsgId.length - 1; i >= 0 && i >= pos; i--) {
-            if(gMsgId[i] !== undefined) {
-                _height += art.dialog.list[gMsgId[i]].DOM.wrap[0].offsetHeight;
-            }
+        for (var i = gMsgId.length - 1; i >= pos; i--) {
+            _height += art.dialog.list[gMsgId[i]].DOM.wrap[0].offsetHeight;
         }
         return _height;
     }
     function _positionPrompt(type) {
+        // 获取页面高度与宽度
         var _wsize = _getWindowSize();
+        // 遍历弹框
         for (var i = 0, l = gMsgId.length; i < l; i++) {
-            var _top = (_wsize.height - _getMsgHeight(i) - (gMsgId.length - i) * 10);
+            // 获取当前弹框的重置位置之后的top值
+            var _top = (_wsize.height - _getMsgHeight(i) - (l - i) * 10);
             if (type === 'close') {
+                // 根据弹框id获取到弹框DOM对象，然后使用jquery animate方法重置位置
                 $(art.dialog.list[gMsgId[i]].DOM.wrap[0]).animate({
                     top: _top
                 }, openDuration);
             } else if (type === 'open') {
-                if (i === (gMsgId.length - 1)) {
+                if (i === (l - 1)) {
+                    // 若是新弹框则将其置于屏幕之下，即新弹框上边框与页面底部持平
                     art.dialog.list[gMsgId[i]].position(_wsize.width - msgWidth - rightMargin, _wsize.height);
                 } else {
+                    // 若不是新弹框则不改变高度
                     art.dialog.list[gMsgId[i]].position(_wsize.width - msgWidth - rightMargin, null);
                 }
+                // 根据弹框id获取到弹框DOM对象，然后使用jquery animate方法重置位置
                 $(art.dialog.list[gMsgId[i]].DOM.wrap[0]).animate({
                     top: _top
                 }, openDuration);
             } else if (type === 'resize') {
+                // 若是页面resize，使用position方法重置位置
                 art.dialog.list[gMsgId[i]].position(_wsize.width - msgWidth - rightMargin, _top);
             }
         }
-        if (gMsgId.length > 3) {
+        // 若是当前弹框数大于3则关闭最旧的那个弹框
+        if (l > 3) {
             setTimeout(function(){
                 art.dialog.list[gMsgId[0]].close();
             }, openDuration);
