@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="#pz">pz</a></li>
+        <li><a href="#wx">wx</a></li>
+        <li><a href="#sp">sp</a></li>
+    </ul>
+    <div id="page"></div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/underscore.js/1.6.0/underscore.js"></script>
+<script src="https://cdn.bootcss.com/backbone.js/1.1.0/backbone.js"></script>
+<script>
+    Backbone.Router.prototype.before = function () { };
+    Backbone.Router.prototype.after = function () { };
+
+    Backbone.Router.prototype.route = function (route, name, callback) {
+        if (!_.isRegExp(route)) route = this._routeToRegExp(route);
+        if (_.isFunction(name)) {
+            callback = name;
+            name = '';
+        }
+        if (!callback) callback = this[name];
+        var router = this;
+        Backbone.history.route(route, function (fragment) {
+            var args = router._extractParameters(route, fragment);
+            router.before.apply(router, args);
+            callback && callback.apply(router, args);
+            router.after.apply(router, args);
+            router.trigger.apply(router, ['route:' + name].concat(args));
+            router.trigger('route', name, args);
+            Backbone.history.trigger('route', router, name, args);
+        });
+        return this;
+    };
+    var Router = Backbone.Router.extend({
+        initialize: function () {
+            console.log('initialize');
+        },
+        before: function () {
+            console.log('before');
+        },
+        after: function () {
+            console.log('after');
+        },
+        routes: {
+            '': 'pz',
+            'pz': 'pz',
+            'wx': 'wx',
+            'sp': 'sp'
+        },
+        pz: function () {
+            console.log('pz');
+            document.getElementById('page').innerHTML = 'Hello pz';
+        },
+        wx: function () {
+            console.log('wx');
+            document.getElementById('page').innerHTML = 'Hello wx';
+        },
+        sp: function () {
+            console.log('sp');
+            document.getElementById('page').innerHTML = 'Hello sp';
+        }
+    });
+    var router = new Router();
+    Backbone.history.start();
+
+</script>
+
+</html>
