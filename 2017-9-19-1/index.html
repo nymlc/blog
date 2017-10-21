@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        .i,
+        .i1,
+        .ii,
+        .iii,
+        .iiii,
+        .iiiii {
+            color: black;
+        }
+
+        .i1,.i {
+            background: skyblue;
+        }
+
+        .ii {
+            background: red;
+        }
+
+        .iii {
+            background: yellowgreen;
+        }
+
+        .iiii {
+            background: orange;
+        }
+
+        .iiiii {
+            background: grey;
+        }
+        #box,
+        #box1,
+        #box2 {
+            display: flex;
+        }
+        #box1 {
+            flex-wrap: wrap-reverse;
+            justify-content: flex-start;
+        }
+        #box2 {
+            flex-wrap: wrap-reverse;
+            justify-content: flex-start;
+            align-items: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var height = document.body.clientHeight;
+        var roster1 = [{
+            'class': 'iii',
+            'width': height / 2 / 10 * 7,
+            'height': height / 4
+        }, {
+            'class': 'iiii',
+            'width': height / 2 / 10 * 7,
+            'height': height / 2
+        }, {
+            'class': 'i1',
+            'width': height / 2 / 10 * 14,
+            'height': height / 2
+        },{
+            'class': 'i',
+            'width': height / 2 / 10 * 14,
+            'height': height / 2
+        }, {
+            'class': 'iiiii',
+            'width': height / 2 / 10 * 14,
+            'height': height / 4 * 3
+        }, {
+            'class': 'ii',
+            'width': height / 2 / 10 * 14,
+            'height': height / 4
+        }];
+        var _left = ['i', 'iiii', 'i1'];
+        var _right = ['ii', 'iii', 'iiiii'];
+        var _leftHtml = '';
+        var _rightHtml = '';
+        for (var i = 0, l = roster1.length; i < l; i++) {
+            var _cell = roster1[i];
+            var _temp = '<div class="' + _cell.class + '" style="width: ' + _cell.width + 'px; height: ' + _cell.height + 'px"></div>';
+            if (_left.indexOf(_cell.class) !== -1) {
+                _leftHtml += _temp;
+            } else if (_right.indexOf(_cell.class) !== -1) {
+                _rightHtml += _temp;
+            }
+        }
+        var _html = '<div id="box1" style="width: ' + height / 20 * 7 * 3 + 'px; height: ' + height + 'px">' + _leftHtml + '</div>' +
+            '<div id="box2" style="width: ' + height / 20 * 7 * 3 + 'px; height: ' + height + 'px">' + _rightHtml + '</div>';
+        $('#box').css({
+            width: height / 20 * 7 * 5,
+            height: height
+        }).html(_html);
+        // $('#box').html(_html);
+    });
+
+</script>
+
+</html>

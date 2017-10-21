@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        .i,
+        .i1,
+        .ii,
+        .iii,
+        .iiii,
+        .iiiii {
+            color: black;
+        }
+
+        .i1,.i {
+            background: skyblue;
+        }
+
+        .ii {
+            background: red;
+        }
+
+        .iii {
+            background: yellowgreen;
+        }
+
+        .iiii {
+            background: orange;
+        }
+
+        .iiiii {
+            background: grey;
+        }
+        #box {
+            display: flex;
+            /* flex-direction: column-reverse; */
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var height = document.body.clientHeight;
+        var roster1 = [{
+            'class': 'iiii',
+            'width': height / 2 / 10 * 7,
+            'height': height / 2
+        },{
+            'class': 'i',
+            'width': height / 2 / 10 * 14,
+            'height': height / 2
+        }, {
+            'class': 'i1',
+            'width': height / 2 / 10 * 14,
+            'height': height / 2
+        }, {
+            'class': 'iii',
+            'width': height / 2 / 10 * 7,
+            'height': height / 4
+        }, {
+            'class': 'ii',
+            'width': height / 2 / 10 * 14,
+            'height': height / 4
+        }, {
+            'class': 'iiiii',
+            'width': height / 2 / 10 * 14,
+            'height': height / 4 * 3
+        }];
+        var _html = '';
+        for (var i = 0, l = roster1.length; i < l; i++) {
+            var _cell = roster1[i];
+            _html += '<div class="' + _cell.class + '" style="height: ' + _cell.width + 'px; width: ' + _cell.height + 'px"></div>';
+        }
+        // $('#box').css({
+        //     width: height / 20 * 7 * 6,
+        //     height: height
+        // }).html(_html);
+        $('#box').css({
+            height: height / 20 * 7 * 6,
+            width: height
+        }).html(_html);
+        // $('#box').html(_html);
+    });
+
+</script>
+
+</html>

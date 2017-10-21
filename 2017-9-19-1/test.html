@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .i,
+        .ii,
+        .iii,
+        .iiii,
+        .iiiii {
+            color: black;
+        }
+
+        .i {
+            background: skyblue;
+            height: 50%;
+        }
+
+        .ii {
+            background: red;
+        }
+
+        .iii {
+            background: yellowgreen;
+        }
+
+        .iiii {
+            background: orange;
+            height: 50%;
+        }
+
+        .iiiii {
+            background: grey;
+        }
+    </style>
+</head>
+<body>
+    <div class="i"></div>
+    <div class="iiii"></div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var height = window.screen.availHeight;
+        var roster1 = [{
+            'class': 'i',
+            'width': height / 2 / 10 * 14,
+            'height': height / 2
+        },{
+            'class': 'ii',
+            'width': height / 2 / 10 * 14,
+            'height': height / 4
+        },{
+            'class': 'iii',
+            'width': height / 2 / 10 * 7,
+            'height': height / 4
+        },{
+            'class': 'iiii',
+            'width': height / 2 / 10 * 7,
+            'height': height / 2
+        },{
+            'class': 'i',
+            'width': height / 2 / 10 * 14,
+            'height': height / 2
+        },{
+            'class': 'iiiii',
+            'width': height / 2 / 10 * 14,
+            'height': height / 2 * 3
+        }];
+        var _html = '';
+        for (var i = 0, l = roster1.length; i < l; i++) {
+            var _cell = roster1[i];
+            _html += '<div class="' + _cell.class + '"></div>';
+        }
+        // $('body').html(_html);
+    });
+
+</script>
+</html>
