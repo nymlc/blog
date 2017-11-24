@@ -1,0 +1,20 @@
+{
+    "name": "2017-11-23-nightwatch",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node ./start.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "nightwatch": "^0.9.16",
+        "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "selenium-standalone": "^6.11.0"
+    }
+}
